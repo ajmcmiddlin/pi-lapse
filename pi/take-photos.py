@@ -14,6 +14,7 @@ keep_going = True
 def sig_handler(signal, frame):
     global keep_going
     keep_going = False
+    print "received signal " + str(signal) + " - keep_going set to " + str(keep_going)
 
 signal.signal(signal.SIGINT, sig_handler)
 signal.signal(signal.SIGTERM, sig_handler)
@@ -21,6 +22,8 @@ signal.signal(signal.SIGTERM, sig_handler)
 # Override default interval if given
 if len(sys.argv) > 1:
     interval_s = int(sys.argv[1])
+
+print "About to commence taking photos every " + str(interval_s) + " seconds"
 
 camera = picamera.PiCamera()
 while keep_going:
@@ -34,5 +37,7 @@ while keep_going:
     next_sleep_s = interval_s - (time.time() - before_capture_s)
     if next_sleep_s > 0:
         time.sleep(next_sleep_s)
+
+print "Exiting cleanly"
 
 sys.exit(0)
