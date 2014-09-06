@@ -19,7 +19,7 @@ signal.signal(signal.SIGINT, sigint_handler)
 
 # Override default interval if given
 if len(sys.argv) > 1:
-    interval = sys.argv[1]
+    interval_s = int(sys.argv[1])
 
 camera = picamera.PiCamera()
 while keep_going:
