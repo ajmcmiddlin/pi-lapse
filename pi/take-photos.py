@@ -12,8 +12,8 @@ keep_going = True
 
 # Stop taking photos if we get an interrupt signal (e.g. ctrl+c)
 def sigint_handler(signal, frame):
+    global keep_going
     keep_going = False
-    print "keep_going is now " + str(keep_going)
 
 signal.signal(signal.SIGINT, sigint_handler)
 
@@ -23,9 +23,7 @@ if len(sys.argv) > 1:
 
 camera = picamera.PiCamera()
 while keep_going:
-    print "keep going in while is " + str(keep_going)
     image_name = time.strftime("pi_lapse_%Y%m%d_%H%M%S.jpg", time.gmtime())
-    print "About to capture " + image_name
     before_capture_s = time.time()
     camera.capture(image_name)
 
