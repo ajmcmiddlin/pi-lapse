@@ -11,11 +11,12 @@ interval_s = 5
 keep_going = True
 
 # Stop taking photos if we get an interrupt signal (e.g. ctrl+c)
-def sigint_handler(signal, frame):
+def sig_handler(signal, frame):
     global keep_going
     keep_going = False
 
-signal.signal(signal.SIGINT, sigint_handler)
+signal.signal(signal.SIGINT, sig_handler)
+signal.signal(signal.SIGTERM, sig_handler)
 
 # Override default interval if given
 if len(sys.argv) > 1:
